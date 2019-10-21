@@ -1,2 +1,4 @@
-# certificacao-aws-architect-associate
+# [](https://github.com/wallacecamacho/certificacao-aws-architect-associate#certificacao-aws-architect-associate)certificacao-aws-architect-associate
+
 material de certificação AWS Architect Associate
+[1. IAM](https://github.com/wallacecamacho/certificacao-aws-architect-associate/blob/master/IAM/iam.md)
