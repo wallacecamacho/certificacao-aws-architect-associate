@@ -16,7 +16,7 @@ Siga estas instruções para assumir uma função do IAM usando a CLI da AWS. Ne
 
 `` plainText
 aws iam create-user - nome do usuário Bob
-`` ``
+``
 
 2. Crie a política do IAM que concede as permissões a **Bob** usando a AWS CLI. Você deve criar o arquivo JSON que define a política do IAM usando seu editor de texto favorito. Este exemplo usa o vim, que é comumente usado no Linux:
 
@@ -24,7 +24,7 @@ aws iam create-user - nome do usuário Bob
 
 `` plainText
 vim example-policy.json
-`` ``
+``
 
 3. O conteúdo do arquivo **example-policy.json** deve ser semelhante a este:
 
@@ -105,7 +105,7 @@ O comando **aws iam create-role** cria a função IAM e define o relacionamento 
 arquivo aws iam create-role --role-name exemplo-role --assume-role-policy-document: //example-role-trust-policy.json
 aws iam attach-role-policy --role-name exemplo-role --policy-arn "arn: aws: iam: aws: policy / AmazonRDSReadOnlyAccess"
 aws iam list-attached-role-policy --role-name exemplo-role
-`` ``
+``
 
 2. Marque **Bob** para verificar o acesso somente leitura às instâncias do EC2 e se ele pode assumir a **função de exemplo**. Crie chaves de acesso para ** Bob ** com este comando:
 
@@ -125,7 +125,7 @@ ID da chave de acesso da AWS [Nenhum]: ExampleAccessKeyID1
 Chave de acesso secreto da AWS [Nenhuma]: ExampleSecretKey1
 Nome da região padrão [Nenhum]: eu-west-1
 Formato de saída padrão [Nenhum]: json
-`` ``
+``
 
 **Nota:** Para **Nome da região padrão**, especifique sua [Região da AWS] (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
 
@@ -144,9 +144,9 @@ O comando **aws sts get-caller-identity** gera três informações, incluindo o 
 `` plainText
 aws ec2 descrevem-instâncias --query "Reservas [*]. Instâncias [*]. [VpcId, InstanceId, ImageId, InstanceType]"
 aws rds descrevem-db-instâncias --query "DBInstances [*]. [DBInstanceIdentifier, DBName, DBInstanceStatus, AvailabilityZone, DBInstanceClass]"
-`` ``
+``
 
-O comando ** aws ec2 descrevem-instâncias ** deve mostrar todas as instâncias do EC2 que estão na região eu-west-1. O comando ** aws rds descrevem-db-instâncias ** deve gerar uma mensagem de erro de acesso negado, porque **Bob** não tem acesso ao Amazon RDS.
+O comando **aws ec2 descrevem-instâncias** deve mostrar todas as instâncias do EC2 que estão na região eu-west-1. O comando ** aws rds descrevem-db-instâncias ** deve gerar uma mensagem de erro de acesso negado, porque **Bob** não tem acesso ao Amazon RDS.
 
 **Assuma a função do IAM**
 
@@ -154,13 +154,13 @@ O comando ** aws ec2 descrevem-instâncias ** deve mostrar todas as instâncias 
 
 `` plainText
 lista-papéis do aws iam --query "Funções [? Nome_do_Role == 'exemplo-papel']. [Nome_do_Role, Arn]"
-`` ``
+``
 
 2. O comando lista funções do IAM, mas filtra a saída pelo nome da função. Para assumir a função do IAM, execute este comando:
 
 `` plainText
 aws sts assume-função --role-arn "arn: aws: iam :: 123456789012: role / exemplo-função" --role-session-name AWSCLI-Session
-`` ``
+``
 
 O comando da CLI da AWS gera várias informações. Dentro do bloco de credenciais, você precisa de **AccessKeyId**, **SecretAccessKey** e **SessionToken**. Anote o registro de data e hora do campo de expiração. Está no fuso horário UTC e indica quando as credenciais temporárias da função IAM expiram. Se as credenciais temporárias expirarem, você deverá chamar a chamada da API **sts:AssumeRole** novamente.
 
@@ -179,7 +179,7 @@ export AWS_SESSION_TOKEN=ExampleSessionToken1
 
 `` plainText
 aws sts get-caller-identity
-`` ``
+``
 
 O comando da CLI da AWS deve gerar o ARN como **arn: aws: sts :: 123456789012: papel assumido / exemplo-papel / AWSCLI-Session** em vez de **arn: aws: iam :: 123456789012: usuário / Bob**, que verifica se você assumiu o **exemplo-papel**.
 
@@ -188,7 +188,7 @@ O comando da CLI da AWS deve gerar o ARN como **arn: aws: sts :: 123456789012: p
 `` plainText
 aws ec2 descrevem-instâncias --query "Reservas [*]. Instâncias [*]. [VpcId, InstanceId, ImageId, InstanceType]"
 aws rds descrevem-db-instâncias --query "DBInstances [*]. [DBInstanceIdentifier, DBName, DBInstanceStatus, AvailabilityZone, DBInstanceClass]"
-`` ``
+``
 
 O comando **aws ec2 descreva instâncias** deve gerar uma mensagem de erro de acesso negado e o comando **aws ec2 descreva instâncias** deve retornar as instâncias do Amazon RDS DB. Isso verifica se as permissões atribuídas à função do IAM estão funcionando corretamente.
 
@@ -197,8 +197,8 @@ O comando **aws ec2 descreva instâncias** deve gerar uma mensagem de erro de ac
 `` plainText
 desconfigurar AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
 aws sts get-caller-identity
-`` ``
+``
 
 O comando **unset **remove as variáveis ​​de ambiente e o comando** aws sts get-caller-identity** verifica se você retornou como **Bob**.
 
-Você também pode usar uma função criando um perfil no arquivo **~ / .aws / config**. Para obter mais informações, consulte [Assumindo uma função do IAM na AWS CLI] (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-role.html).
+Você também pode usar uma função criando um perfil no arquivo **~/.aws /config**. Para obter mais informações, consulte [Assumindo uma função do IAM na AWS CLI] (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-role.html).
