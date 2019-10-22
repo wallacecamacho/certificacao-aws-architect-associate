@@ -1,33 +1,32 @@
-﻿
-# How do I assume an IAM role using the AWS CLI?
+﻿# Como assumo uma função do IAM usando a CLI da AWS?
 
-_Last updated: 2019-05-07_
+_Última atualização: 2019-05-07_
 
-I want to assume an Amazon Identity and Access Management (IAM) role using the AWS Command Line Interface (AWS CLI). How can I do this?  
+Desejo assumir uma função do Amazon Identity and Access Management (IAM) usando a AWS Command Line Interface (AWS CLI). Como posso fazer isso?
 
-## Resolution
+## Resolução
 
-Follow these instructions to assume an IAM role using the AWS CLI. In this example, the user will have read-only access to Amazon Elastic Compute Cloud (Amazon EC2) instances and permission to assume an IAM role.
+Siga estas instruções para assumir uma função do IAM usando a CLI da AWS. Neste exemplo, o usuário terá acesso somente leitura às instâncias do Amazon Elastic Compute Cloud (Amazon EC2) e permissão para assumir uma função do IAM.
 
-**Create an IAM user that has permissions to assume roles**
+**Crie um usuário do IAM que tenha permissões para assumir funções *
 
-1. [Create an IAM user using the AWS CLI](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_cliwpsapi):
+1. [Crie um usuário do IAM usando a CLI da AWS] (https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_cliwpsapi):
 
-**Note:** Replace **Bob** with your IAM user name.  
+**Nota: **Substitua** Bob** pelo seu nome de usuário do IAM.
 
-```plainText
-aws iam create-user --user-name Bob
-```
+`` plainText
+aws iam create-user - nome do usuário Bob
+`` ``
 
-2. Create the IAM policy that grants the permissions to **Bob** using the AWS CLI. You must create the JSON file that defines the IAM policy using your favorite text editor. This example uses vim, which is commonly used in Linux:
+2. Crie a política do IAM que concede as permissões a **Bob** usando a AWS CLI. Você deve criar o arquivo JSON que define a política do IAM usando seu editor de texto favorito. Este exemplo usa o vim, que é comumente usado no Linux:
 
-**Note:** Replace **example** with your own policy name, user name, role, JSON file name, profile name, and keys.  
+**Nota: **Substitua** example** por seu próprio nome da política, nome do usuário, função, nome do arquivo JSON, nome do perfil e chaves.
 
-```plainText
+`` plainText
 vim example-policy.json
-```
+`` ``
 
-3. The contents of the **example-policy.json** file should be similar to this:
+3. O conteúdo do arquivo **example-policy.json** deve ser semelhante a este:
 
 ```plainText
 {
@@ -46,40 +45,40 @@ vim example-policy.json
 }
 ```
 
-For more information about creating IAM policies, see [Creating IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html), [Example IAM Identity-Based Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html), and [IAM JSON Policy Reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html).
+Para obter mais informações sobre como criar políticas do IAM, consulte [Criando políticas do IAM] (https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html), [Exemplo de políticas baseadas em identidade do IAM] (https: / /docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html) e [IAM JSON Policy Reference] (https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html) .
 
-**Create the IAM policy**
+**Crie a política do IAM**
 
-1. Use the **aws iam create-policy** command:
+1. Use o comando **aws iam create-policy**:
 
 ```plainText
 aws iam create-policy --policy-name example-policy --policy-document file://example-policy.json
 ```
 
-The aws iam create-policy command outputs several pieces of information, including the ARN (Amazon Resource Name) of the IAM policy:
+O comando aws iam create-policy gera várias informações, incluindo o ARN (Amazon Resource Name) da política do IAM:
 
 ```plainText
 arn:aws:iam::123456789012:policy/example-policy
 ```
 
-**Note:** Replace **123456789012** with your own account
+**Nota: **Substitua** 123456789012** por sua própria conta
 
-2. Take note of the IAM policy ARN from the output, and attach the policy to **Bob** using the **attach-user-policy** command. Check to make sure that the attachment is in place using **list-attached-user-policies**:
+2. Anote a ARN da política do IAM na saída e anexe a política a ** Bob ** usando o comando ** attach-user-policy **. Verifique se o anexo está no lugar usando ** list-attached-user-policy **:
 
 ```plainText
 aws iam attach-user-policy --user-name Bob --policy-arn "arn:aws:iam::123456789012:policy/example-policy"
 aws iam list-attached-user-policies --user-name Bob
 ```
 
-**Create the JSON file that defines the trust relationship of the IAM role**
+**Crie o arquivo JSON que define a relação de confiança da função IAM**
 
-1. Create the JSON file that defines the trust relationship:
+1. Crie o arquivo JSON que define o relacionamento de confiança:
 
 ```plainText
 vim example-role-trust-policy.json
 ```
 
-2. The contents of the example-role-trust-policy.json file should be similar to this:
+2. O conteúdo do arquivo example-role-trust-policy.json deve ser semelhante a este:
 
 ```plainText
 {
@@ -92,115 +91,114 @@ vim example-role-trust-policy.json
 }
 ```
 
-You can also restrict the trust relationship so that the IAM role can be assumed only by specific IAM users. You can do this by specifying principals similar to **arn:aws:iam::123456789012:user/example-username**. For more information, see [AWS JSON Policy Elements: Principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html).
+Você também pode restringir a relação de confiança para que a função do IAM possa ser assumida apenas por usuários específicos do IAM. Você pode fazer isso especificando entidades semelhantes a **arn: aws: iam :: 123456789012: usuário / exemplo-nome de usuário**. Para obter mais informações, consulte [AWS JSON Policy Elements: Principal] (https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html).
 
-**Create the IAM role and attach the policy**
+**Crie a função do IAM e anexe a política**
 
-Create an IAM role that can be assumed by **Bob** that has read-only access to Amazon Relational Database Service (Amazon RDS) instances. Because this IAM role is assumed by an IAM user, you must specify a principal that allows IAM users to assume that role. For example, a principal similar to **arn:aws:iam::123456789012:root** allows all IAM identities of the account to assume that role. For more information, see [Creating a Role to Delegate Permissions to an IAM User](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user.html).
+Crie uma função do IAM que possa ser assumida por ** Bob ** que tenha acesso somente leitura às instâncias do Amazon Relational Database Service (Amazon RDS). Como essa função do IAM é assumida por um usuário do IAM, você deve especificar uma entidade que permita que os usuários do IAM assumam essa função. Por exemplo, um princípio semelhante a **arn: aws: iam :: 123456789012: root** permite que todas as identidades do IAM da conta assumam essa função. Para obter mais informações, consulte [Criando uma função para delegar permissões a um usuário do IAM] (https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user.html).
 
-1. Create the IAM role that has read-only access to Amazon RDS DB instances. Attach the IAM policies to your IAM role according to your security requirements.
+1. Crie a função IAM que tenha acesso somente leitura às instâncias do Amazon RDS DB. Anexe as políticas do IAM à sua função do IAM de acordo com seus requisitos de segurança.
 
-The **aws iam create-role** command creates the IAM role and defines the trust relationship according to the contents of the JSON file. The **aws iam attach-role-policy** command attaches the AWS Managed Policy **AmazonRDSReadOnlyAccess** to the role. You can attach different policies (Managed Policies and Custom Policies) according to your security requirements. The **aws iam list-attached-role-policies** command shows the IAM policies that are attached to the IAM role **example-role**.
+O comando **aws iam create-role** cria a função IAM e define o relacionamento de confiança de acordo com o conteúdo do arquivo JSON. O comando **aws iam attach-role-policy** anexa a Política gerenciada da AWS ** AmazonRDSReadOnlyAccess **à função. Você pode anexar políticas diferentes (políticas gerenciadas e políticas personalizadas) de acordo com seus requisitos de segurança. O comando** aws iam list-attached-role-policy **mostra as políticas do IAM anexadas à função do IAM ** example-role**.
 
-```plainText
-aws iam create-role --role-name example-role --assume-role-policy-document file://example-role-trust-policy.json
-aws iam attach-role-policy --role-name example-role --policy-arn "arn:aws:iam::aws:policy/AmazonRDSReadOnlyAccess"
-aws iam list-attached-role-policies --role-name example-role
-```
+`` plainText
+arquivo aws iam create-role --role-name exemplo-role --assume-role-policy-document: //example-role-trust-policy.json
+aws iam attach-role-policy --role-name exemplo-role --policy-arn "arn: aws: iam: aws: policy / AmazonRDSReadOnlyAccess"
+aws iam list-attached-role-policy --role-name exemplo-role
+`` ``
 
-2. Check **Bob** to verify read-only access to EC2 instances, and if it's able to assume the **example-role**. Create access keys for **Bob** with this command:
+2. Marque **Bob** para verificar o acesso somente leitura às instâncias do EC2 e se ele pode assumir a **função de exemplo**. Crie chaves de acesso para ** Bob ** com este comando:
 
 ```plainText
 aws iam create-access-key --user-name Bob
 ```
 
-The AWS CLI command outputs an access key ID and a secret access key—take note of these keys.
+O comando da AWS CLI gera um ID da chave de acesso e uma chave de acesso secreta - observe essas chaves.
 
-**Configure the access keys**
+** Configure as chaves de acesso **
 
-1. To configure the access keys, use either the default profile or a specific profile. To configure the default profile, run **aws configure**. To create a new specific profile, run **aws configure --profile example-profile-name**. In this example, the default profile is configured:
+1. Para configurar as teclas de acesso, use o perfil padrão ou um perfil específico. Para configurar o perfil padrão, execute **aws configur **. Para criar um novo perfil específico, execute **aws configure --profile example-profile-name**. Neste exemplo, o perfil padrão está configurado:
 
-```plainText
+`` plainText
 aws configure
-AWS Access Key ID [None]: ExampleAccessKeyID1
-AWS Secret Access Key [None]: ExampleSecretKey1
-Default region name [None]: eu-west-1
-Default output format [None]: json
-```
+ID da chave de acesso da AWS [Nenhum]: ExampleAccessKeyID1
+Chave de acesso secreto da AWS [Nenhuma]: ExampleSecretKey1
+Nome da região padrão [Nenhum]: eu-west-1
+Formato de saída padrão [Nenhum]: json
+`` ``
 
-**Note:** For **Default region name**, specify your [AWS Region](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
+**Nota:** Para **Nome da região padrão**, especifique sua [Região da AWS] (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
 
 **Verify that your AWS CLI commands are invoked and IAM user access**
 
-1. Run the **aws sts get-caller-identity** command:
+1. execute o comando **aws sts get-caller-identity**:
 
 ```plainText
 aws sts get-caller-identity
 ```
 
-The **aws sts get-caller-identity** command outputs three pieces of information including the ARN. It should show something similar to **arn:aws:iam::123456789012:user/Bob**, which verifies that the AWS CLI commands are invoked as **Bob**.
+O comando **aws sts get-caller-identity** gera três informações, incluindo o ARN. Ele deve mostrar algo semelhante a **arn: aws: iam :: 123456789012: user / Bob**, que verifica se os comandos da AWS CLI são chamados como **Bob**.
 
-2. Confirm that the IAM user has read-only access to EC2 instances and no access to Amazon RDS DB instances by running these commands:
+2. Confirme se o usuário do IAM possui acesso somente leitura às instâncias do EC2 e nenhum acesso às instâncias do Amazon RDS DB executando estes comandos:
 
-```plainText
-aws ec2 describe-instances --query "Reservations[*].Instances[*].[VpcId, InstanceId, ImageId, InstanceType]"
-aws rds describe-db-instances --query "DBInstances[*].[DBInstanceIdentifier, DBName, DBInstanceStatus, AvailabilityZone, DBInstanceClass]"
-```
+`` plainText
+aws ec2 descrevem-instâncias --query "Reservas [*]. Instâncias [*]. [VpcId, InstanceId, ImageId, InstanceType]"
+aws rds descrevem-db-instâncias --query "DBInstances [*]. [DBInstanceIdentifier, DBName, DBInstanceStatus, AvailabilityZone, DBInstanceClass]"
+`` ``
 
-The **aws ec2 describe-instances** command should show you all the EC2 instances that are in the eu-west-1 Region. The **aws rds describe-db-instances** command must generate an access denied error message, because **Bob** doesn't have access to Amazon RDS.
+O comando ** aws ec2 descrevem-instâncias ** deve mostrar todas as instâncias do EC2 que estão na região eu-west-1. O comando ** aws rds descrevem-db-instâncias ** deve gerar uma mensagem de erro de acesso negado, porque **Bob** não tem acesso ao Amazon RDS.
 
-**Assume the IAM role**
+**Assuma a função do IAM**
 
-1. Get the ARN of the role by running this command:
+1. Obtenha o ARN da função executando este comando:
 
-```plainText
-aws iam list-roles --query "Roles[?RoleName == 'example-role'].[RoleName, Arn]"
-```
+`` plainText
+lista-papéis do aws iam --query "Funções [? Nome_do_Role == 'exemplo-papel']. [Nome_do_Role, Arn]"
+`` ``
 
-2. The command lists IAM roles but filters the output by role name. To assume the IAM role, run this command:
+2. O comando lista funções do IAM, mas filtra a saída pelo nome da função. Para assumir a função do IAM, execute este comando:
 
-```plainText
-aws sts assume-role --role-arn "arn:aws:iam::123456789012:role/example-role" --role-session-name AWSCLI-Session
-```
+`` plainText
+aws sts assume-função --role-arn "arn: aws: iam :: 123456789012: role / exemplo-função" --role-session-name AWSCLI-Session
+`` ``
 
-The AWS CLI command outputs several pieces of information. Inside the credentials block you need the **AccessKeyId**, **SecretAccessKey**, and **SessionToken**. Take note of the timestamp of the expiration field. It is in the UTC time zone and indicates when the temporary credentials of the IAM role will expire. If the temporary credentials are expired, you must invoke the **sts:AssumeRole** API call again.  
+O comando da CLI da AWS gera várias informações. Dentro do bloco de credenciais, você precisa de **AccessKeyId**, **SecretAccessKey** e **SessionToken**. Anote o registro de data e hora do campo de expiração. Está no fuso horário UTC e indica quando as credenciais temporárias da função IAM expiram. Se as credenciais temporárias expirarem, você deverá chamar a chamada da API **sts:AssumeRole** novamente.
 
-**Note:** You can increase the maximum session duration expiration for temporary credentials for IAM roles using the [DurationSeconds](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithSAML.html#API_AssumeRoleWithSAML_RequestParameters) parameter.
+**Nota:** Você pode aumentar a expiração máxima da duração da sessão para credenciais temporárias para funções do IAM usando o [DurationSeconds] (https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithSAML.html#API_AssumeRoleWithSAML.html#API_AssumeRoleWithSAML_RequestParameters) parâmetro.
 
-**Create environment variables to assume the IAM role and verify access**
+**Crie variáveis ​​de ambiente para assumir a função do IAM e verificar o acesso**
 
-1. Create three environment variables to assume the IAM role. These environment variables are filled out with this output:
-
+1. Crie três variáveis ​​de ambiente para assumir a função do IAM. Essas variáveis ​​de ambiente são preenchidas com esta saída:
 ```plainText
 export AWS_ACCESS_KEY_ID=ExampleAccessKeyID1
 export AWS_SECRET_ACCESS_KEY=ExampleSecretKey1
 export AWS_SESSION_TOKEN=ExampleSessionToken1
 ```
 
-2. Verify that you assumed the IAM role by running this command:
+2. Verifique se você assumiu a função do IAM executando este comando:
 
-```plainText
+`` plainText
 aws sts get-caller-identity
-```
+`` ``
 
-The AWS CLI command should output the ARN as **arn:aws:sts::123456789012:assumed-role/example-role/AWSCLI-Session** instead of **arn:aws:iam::123456789012:user/Bob**, which verifies that you assumed the **example-role**.
+O comando da CLI da AWS deve gerar o ARN como **arn: aws: sts :: 123456789012: papel assumido / exemplo-papel / AWSCLI-Session** em vez de **arn: aws: iam :: 123456789012: usuário / Bob**, que verifica se você assumiu o **exemplo-papel**.
 
-3. You created an IAM role with read-only access to Amazon RDS DB instances, but no access to EC2 instances. Verify by running these commands:
+3. Você criou uma função do IAM com acesso somente leitura às instâncias do Amazon RDS DB, mas sem acesso às instâncias do EC2. Verifique executando estes comandos:
 
-```plainText
-aws ec2 describe-instances --query "Reservations[*].Instances[*].[VpcId, InstanceId, ImageId, InstanceType]"
-aws rds describe-db-instances --query "DBInstances[*].[DBInstanceIdentifier, DBName, DBInstanceStatus, AvailabilityZone, DBInstanceClass]"
-```
+`` plainText
+aws ec2 descrevem-instâncias --query "Reservas [*]. Instâncias [*]. [VpcId, InstanceId, ImageId, InstanceType]"
+aws rds descrevem-db-instâncias --query "DBInstances [*]. [DBInstanceIdentifier, DBName, DBInstanceStatus, AvailabilityZone, DBInstanceClass]"
+`` ``
 
-The **aws ec2 describe-instances** command should generate an access denied error message, and the **aws ec2 describe-instances** command should return the Amazon RDS DB instances. This verifies that the permissions assigned to the IAM role are working correctly.
+O comando **aws ec2 descreva instâncias** deve gerar uma mensagem de erro de acesso negado e o comando **aws ec2 descreva instâncias** deve retornar as instâncias do Amazon RDS DB. Isso verifica se as permissões atribuídas à função do IAM estão funcionando corretamente.
 
-4. To return to the IAM user, remove the environment variables:
+4. Para retornar ao usuário do IAM, remova as variáveis ​​de ambiente:
 
-```plainText
-unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
+`` plainText
+desconfigurar AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
 aws sts get-caller-identity
-```
+`` ``
 
-The **unset** command removes the environment variables, and the **aws sts get-caller-identity** command verifies that you returned as **Bob**.
+O comando **unset **remove as variáveis ​​de ambiente e o comando** aws sts get-caller-identity** verifica se você retornou como **Bob**.
 
-You can also use a role by creating a profile in the **~/.aws/config** file. For more information, see [Assuming an IAM Role in the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-role.html).
+Você também pode usar uma função criando um perfil no arquivo **~ / .aws / config**. Para obter mais informações, consulte [Assumindo uma função do IAM na AWS CLI] (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-role.html).
