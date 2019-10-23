@@ -136,15 +136,15 @@ Formato de saída padrão [Nenhum]:json
 
 **Verifique se seus comandos da AWS CLI são chamados e o acesso do usuário do IAM**
 
-1. execute o comando **aws --profile test sts get-caller-identity**:
+1. execute o comando **aws sts get-caller-identity**:
 
 ```
 aws sts get-caller-identity
 ```
 
-O comando **aws --profile test sts get-caller-identity** gera três informações, incluindo o ARN. Ele deve mostrar algo semelhante a **arn:aws:iam::123456789012:user/Bob**, que verifica se os comandos da AWS CLI são chamados como **Bob**.
+O comando **aws sts get-caller-identity** gera três informações, incluindo o ARN. Ele deve mostrar algo semelhante a **arn:aws:iam::123456789012:user/Bob**, que verifica se os comandos da AWS CLI são chamados como **Bob**.
 
-2. Confirme se o usuário do IAM possui acesso somente leitura às instâncias do EC2 e nenhum acesso às instâncias do Amazon RDS DB executando estes comandos:
+1. Confirme se o usuário do IAM possui acesso somente leitura às instâncias do EC2 e nenhum acesso às instâncias do Amazon RDS DB executando estes comandos:
 
 ```
 aws ec2 describe-instances --query "Reservations[*].Instances[*].[VpcId, InstanceId, ImageId, InstanceType]"
