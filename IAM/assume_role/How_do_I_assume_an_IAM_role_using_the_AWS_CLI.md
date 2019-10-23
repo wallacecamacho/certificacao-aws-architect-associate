@@ -14,11 +14,11 @@ Siga estas instruções para assumir uma função do IAM usando a CLI da AWS. Ne
 
 **Nota: **Substitua** Bob** pelo seu nome de usuário do IAM.
 
-`` plainText
+``
 aws iam create-user - nome do usuário Bob
 ``
 
-2. Crie a política do IAM que concede as permissões a **Bob** usando a AWS CLI. Você deve criar o arquivo JSON que define a política do IAM usando seu editor de texto favorito. Este exemplo usa o vim, que é comumente usado no Linux:
+1. Crie a política do IAM que concede as permissões a **Bob** usando a AWS CLI. Você deve criar o arquivo JSON que define a política do IAM usando seu editor de texto favorito. Este exemplo usa o vim, que é comumente usado no Linux:
 
 **Nota: **Substitua** example** por seu próprio nome da política, nome do usuário, função, nome do arquivo JSON, nome do perfil e chaves.
 
