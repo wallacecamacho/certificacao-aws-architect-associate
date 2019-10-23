@@ -91,7 +91,7 @@ vim example-role-trust-policy.json
 }
 ```
 
-Você também pode restringir a relação de confiança para que a função do IAM possa ser assumida apenas por usuários específicos do IAM. Você pode fazer isso especificando entidades semelhantes a **arn: aws: iam :: 123456789012: usuário / exemplo-nome de usuário**. Para obter mais informações, consulte [AWS JSON Policy Elements: Principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html).
+Você também pode restringir a relação de confiança para que a função do IAM possa ser assumida apenas por usuários específicos do IAM. Você pode fazer isso especificando entidades semelhantes a **arn:aws:iam::123456789012:user/exemplo-nome de usuário**. Para obter mais informações, consulte [AWS JSON Policy Elements: Principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html).
 
 **Crie a função do IAM e anexe a política**
 
