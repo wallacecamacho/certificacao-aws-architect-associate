@@ -8,7 +8,7 @@ Desejo assumir uma função do Amazon Identity and Access Management (IAM) usand
 
 Siga estas instruções para assumir uma função do IAM usando a CLI da AWS. Neste exemplo, o usuário terá acesso somente leitura às instâncias do Amazon Elastic Compute Cloud (Amazon EC2) e permissão para assumir uma função do IAM.
 
-**Crie um usuário do IAM que tenha permissões para assumir funções *
+**Crie um usuário do IAM que tenha permissões para assumir funções**
 
 1. [Crie um usuário do IAM usando a CLI da AWS](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_cliwpsapi):
 
