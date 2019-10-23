@@ -22,13 +22,13 @@ aws iam create-user - nome do usuário Bob
 
 **Nota: **Substitua** example** por seu próprio nome da política, nome do usuário, função, nome do arquivo JSON, nome do perfil e chaves.
 
-`` plainText
+`` 
 vim example-policy.json
 ``
 
 3. O conteúdo do arquivo **example-policy.json** deve ser semelhante a este:
 
-```plainText
+```
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -51,13 +51,13 @@ Para obter mais informações sobre como criar políticas do IAM, consulte [Cria
 
 1. Use o comando **aws iam create-policy**:
 
-```plainText
+```
 aws iam create-policy --policy-name example-policy --policy-document file://example-policy.json
 ```
 
 O comando aws iam create-policy gera várias informações, incluindo o ARN (Amazon Resource Name) da política do IAM:
 
-```plainText
+```
 arn:aws:iam::123456789012:policy/example-policy
 ```
 
@@ -65,7 +65,7 @@ arn:aws:iam::123456789012:policy/example-policy
 
 2. Anote a ARN da política do IAM na saída e anexe a política a ** Bob ** usando o comando ** attach-user-policy **. Verifique se o anexo está no lugar usando ** list-attached-user-policy **:
 
-```plainText
+```
 aws iam attach-user-policy --user-name Bob --policy-arn "arn:aws:iam::123456789012:policy/example-policy"
 aws iam list-attached-user-policies --user-name Bob
 ```
@@ -74,13 +74,13 @@ aws iam list-attached-user-policies --user-name Bob
 
 1. Crie o arquivo JSON que define o relacionamento de confiança:
 
-```plainText
+```
 vim example-role-trust-policy.json
 ```
 
 2. O conteúdo do arquivo example-role-trust-policy.json deve ser semelhante a este:
 
-```plainText
+```
 {
     "Version": "2012-10-17",
     "Statement": {
@@ -101,7 +101,7 @@ Crie uma função do IAM que possa ser assumida por ** Bob ** que tenha acesso s
 
 O comando **aws iam create-role** cria a função IAM e define o relacionamento de confiança de acordo com o conteúdo do arquivo JSON. O comando **aws iam attach-role-policy** anexa a Política gerenciada da AWS ** AmazonRDSReadOnlyAccess **à função. Você pode anexar políticas diferentes (políticas gerenciadas e políticas personalizadas) de acordo com seus requisitos de segurança. O comando** aws iam list-attached-role-policy **mostra as políticas do IAM anexadas à função do IAM ** example-role**.
 
-`` plainText
+`` 
 arquivo aws iam create-role --role-name exemplo-role --assume-role-policy-document: //example-role-trust-policy.json
 aws iam attach-role-policy --role-name exemplo-role --policy-arn "arn: aws: iam: aws: policy / AmazonRDSReadOnlyAccess"
 aws iam list-attached-role-policy --role-name exemplo-role
@@ -109,7 +109,7 @@ aws iam list-attached-role-policy --role-name exemplo-role
 
 2. Marque **Bob** para verificar o acesso somente leitura às instâncias do EC2 e se ele pode assumir a **função de exemplo**. Crie chaves de acesso para ** Bob ** com este comando:
 
-```plainText
+```
 aws iam create-access-key --user-name Bob
 ```
 
@@ -119,7 +119,7 @@ O comando da AWS CLI gera um ID da chave de acesso e uma chave de acesso secreta
 
 1. Para configurar as teclas de acesso, use o perfil padrão ou um perfil específico. Para configurar o perfil padrão, execute **aws configur **. Para criar um novo perfil específico, execute **aws configure --profile example-profile-name**. Neste exemplo, o perfil padrão está configurado:
 
-`` plainText
+`` 
 aws configure
 ID da chave de acesso da AWS [Nenhum]: ExampleAccessKeyID1
 Chave de acesso secreto da AWS [Nenhuma]: ExampleSecretKey1
@@ -133,7 +133,7 @@ Formato de saída padrão [Nenhum]: json
 
 1. execute o comando **aws sts get-caller-identity**:
 
-```plainText
+```
 aws sts get-caller-identity
 ```
 
@@ -141,7 +141,7 @@ O comando **aws sts get-caller-identity** gera três informações, incluindo o 
 
 2. Confirme se o usuário do IAM possui acesso somente leitura às instâncias do EC2 e nenhum acesso às instâncias do Amazon RDS DB executando estes comandos:
 
-`` plainText
+`` 
 aws ec2 descrevem-instâncias --query "Reservas [*]. Instâncias [*]. [VpcId, InstanceId, ImageId, InstanceType]"
 aws rds descrevem-db-instâncias --query "DBInstances [*]. [DBInstanceIdentifier, DBName, DBInstanceStatus, AvailabilityZone, DBInstanceClass]"
 ``
@@ -152,13 +152,13 @@ O comando **aws ec2 descrevem-instâncias** deve mostrar todas as instâncias do
 
 1. Obtenha o ARN da função executando este comando:
 
-`` plainText
+`` 
 lista-papéis do aws iam --query "Funções [? Nome_do_Role == 'exemplo-papel']. [Nome_do_Role, Arn]"
 ``
 
 2. O comando lista funções do IAM, mas filtra a saída pelo nome da função. Para assumir a função do IAM, execute este comando:
 
-`` plainText
+`` 
 aws sts assume-função --role-arn "arn: aws: iam :: 123456789012: role / exemplo-função" --role-session-name AWSCLI-Session
 ``
 
@@ -169,7 +169,7 @@ O comando da CLI da AWS gera várias informações. Dentro do bloco de credencia
 **Crie variáveis ​​de ambiente para assumir a função do IAM e verificar o acesso**
 
 1. Crie três variáveis ​​de ambiente para assumir a função do IAM. Essas variáveis ​​de ambiente são preenchidas com esta saída:
-```plainText
+```
 export AWS_ACCESS_KEY_ID=ExampleAccessKeyID1
 export AWS_SECRET_ACCESS_KEY=ExampleSecretKey1
 export AWS_SESSION_TOKEN=ExampleSessionToken1
@@ -177,7 +177,7 @@ export AWS_SESSION_TOKEN=ExampleSessionToken1
 
 2. Verifique se você assumiu a função do IAM executando este comando:
 
-`` plainText
+`` 
 aws sts get-caller-identity
 ``
 
@@ -185,7 +185,7 @@ O comando da CLI da AWS deve gerar o ARN como **arn: aws: sts :: 123456789012: p
 
 3. Você criou uma função do IAM com acesso somente leitura às instâncias do Amazon RDS DB, mas sem acesso às instâncias do EC2. Verifique executando estes comandos:
 
-`` plainText
+`` 
 aws ec2 descrevem-instâncias --query "Reservas [*]. Instâncias [*]. [VpcId, InstanceId, ImageId, InstanceType]"
 aws rds descrevem-db-instâncias --query "DBInstances [*]. [DBInstanceIdentifier, DBName, DBInstanceStatus, AvailabilityZone, DBInstanceClass]"
 ``
@@ -194,7 +194,7 @@ O comando **aws ec2 descreva instâncias** deve gerar uma mensagem de erro de ac
 
 4. Para retornar ao usuário do IAM, remova as variáveis ​​de ambiente:
 
-`` plainText
+`` 
 desconfigurar AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
 aws sts get-caller-identity
 ``
