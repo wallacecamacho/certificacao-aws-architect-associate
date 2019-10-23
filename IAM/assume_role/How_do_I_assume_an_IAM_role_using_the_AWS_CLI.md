@@ -113,7 +113,7 @@ aws iam list-attached-role-policies --role-name example-role
 aws iam create-access-key --user-name Bob
 ```
 
-O comando da AWS CLI gera um ID da chave de acesso e uma chave de acesso secreta - observe essas chaves.
+O comando da AWS CLI gera um ID da chave de acesso e uma chave de acesso secreta - observe essas chaves. Pode salvar o AccessKeyId e o SecretAccessKey para uso em outros exemplos.
 
 **Configure as chaves de acesso**
 
@@ -129,7 +129,7 @@ Formato de saída padrão [Nenhum]:json
 
 **Nota:** Para **Nome da região padrão**, especifique sua [Região da AWS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
 
-**Verify that your AWS CLI commands are invoked and IAM user access**
+**Verifique se seus comandos da AWS CLI são chamados e o acesso do usuário do IAM**
 
 1. execute o comando **aws sts get-caller-identity**:
 
