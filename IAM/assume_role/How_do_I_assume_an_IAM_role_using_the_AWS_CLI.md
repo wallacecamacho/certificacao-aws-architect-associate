@@ -101,11 +101,11 @@ Crie uma função do IAM que possa ser assumida por **Bob** que tenha acesso som
 
 O comando **aws iam create-role** cria a função IAM e define o relacionamento de confiança de acordo com o conteúdo do arquivo JSON. O comando **aws iam attach-role-policy** anexa a Política gerenciada da AWS **AmazonRDSReadOnlyAccess** à função. Você pode anexar políticas diferentes (políticas gerenciadas e políticas personalizadas) de acordo com seus requisitos de segurança. O comando **aws iam list-attached-role-policy** amostra as políticas do IAM anexadas à função do IAM **example-role**.
 
-`` 
+```
 arquivo aws iam create-role --role-name exemplo-role --assume-role-policy-document: //example-role-trust-policy.json
 aws iam attach-role-policy --role-name exemplo-role --policy-arn "arn:aws: iam:aws:policy/AmazonRDSReadOnlyAccess"
 aws iam list-attached-role-policy --role-name exemplo-role
-``
+```
 
 2. Marque **Bob** para verificar o acesso somente leitura às instâncias do EC2 e se ele pode assumir a **função de exemplo**. Crie chaves de acesso para **Bob** com este comando:
 
