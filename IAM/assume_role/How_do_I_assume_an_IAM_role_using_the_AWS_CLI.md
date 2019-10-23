@@ -141,11 +141,12 @@ O comando **aws sts get-caller-identity** gera três informações, incluindo o 
 
 2. Confirme se o usuário do IAM possui acesso somente leitura às instâncias do EC2 e nenhum acesso às instâncias do Amazon RDS DB executando estes comandos:
 
-`` 
+``
 aws ec2 describe-instances --query "Reservations[*].Instances[*].[VpcId, InstanceId, ImageId, InstanceType]"
 ``
 
-``aws rds describe-db-instances --query "DBInstances[*].[DBInstanceIdentifier, DBName, DBInstanceStatus, AvailabilityZone, DBInstanceClass]"
+``
+aws rds describe-db-instances --query "DBInstances[*].[DBInstanceIdentifier, DBName, DBInstanceStatus, AvailabilityZone, DBInstanceClass]"
 ``
 
 O comando **aws ec2 descrevem-instâncias** deve mostrar todas as instâncias do EC2 que estão na região eu-west-1. O comando **aws rds descrevem-db-instâncias** deve gerar uma mensagem de erro de acesso negado, porque **Bob** não tem acesso ao Amazon RDS.
@@ -188,7 +189,7 @@ O comando da CLI da AWS deve gerar o ARN como **arn:aws:sts::123456789012:papel-
 3. Você criou uma função do IAM com acesso somente leitura às instâncias do Amazon RDS DB, mas sem acesso às instâncias do EC2. Verifique executando estes comandos:
 
 `` 
-aws ec2 describe-instances --query "Reservations[*].Instances[*].[VpcId, InstanceId, ImageId, InstanceType]"
+aws ec2 describe-instances --query "Reservations[*].Instances[*].[VpcId InstanceId, ImageId, InstanceType]"
 ``
 
 ``
