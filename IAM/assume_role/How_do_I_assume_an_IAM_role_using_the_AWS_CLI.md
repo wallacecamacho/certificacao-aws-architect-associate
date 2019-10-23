@@ -179,8 +179,13 @@ export AWS_ACCESS_KEY_ID=ExampleAccessKeyID1
 export AWS_SECRET_ACCESS_KEY=ExampleSecretKey1
 export AWS_SESSION_TOKEN=ExampleSessionToken1
 ```
+2. Verifique as informações digite o comando:
+   
+```
+env | grep AWS
+```
 
-2. Verifique se você assumiu a função do IAM executando este comando:
+3. Verifique se você assumiu a função do IAM executando este comando:
 
 ```
 aws sts get-caller-identity
