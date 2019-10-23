@@ -186,8 +186,10 @@ O comando da CLI da AWS deve gerar o ARN como **arn:aws:sts::123456789012:papel-
 3. Você criou uma função do IAM com acesso somente leitura às instâncias do Amazon RDS DB, mas sem acesso às instâncias do EC2. Verifique executando estes comandos:
 
 `` 
-aws ec2 describe-instances --query "Reservas [*]. Instâncias [*]. [VpcId, InstanceId, ImageId, InstanceType]"
-aws rds descrevem-db-instâncias --query "DBInstances [*]. [DBInstanceIdentifier, DBName, DBInstanceStatus, AvailabilityZone, DBInstanceClass]"
+aws ec2 describe-instances --query "Reservations[*].Instances[*].[VpcId, InstanceId, ImageId, InstanceType]"
+``
+``
+aws rds describe-db-instances --query "DBInstances[*].[DBInstanceIdentifier, DBName, DBInstanceStatus, AvailabilityZone, DBInstanceClass]"
 ``
 
 O comando **aws ec2 descreva instâncias** deve gerar uma mensagem de erro de acesso negado e o comando **aws ec2 descreva instâncias** deve retornar as instâncias do Amazon RDS DB. Isso verifica se as permissões atribuídas à função do IAM estão funcionando corretamente.
