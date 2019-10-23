@@ -155,15 +155,15 @@ O comando **aws ec2 descrevem-instâncias** deve mostrar todas as instâncias do
 
 1. Obtenha o ARN da função executando este comando:
 
-`` 
+```
 lista-papéis do aws iam --query "Funções [?Nome_do_Role=='exemplo-papel']. [Nome_do_Role, Arn]"
-``
+```
 
 2. O comando lista funções do IAM, mas filtra a saída pelo nome da função. Para assumir a função do IAM, execute este comando:
 
-`` 
+```
 aws sts assume-role --role-arn "arn:aws:iam::123456789012:role/exemplo-função" --role-session-name AWSCLI-Session
-``
+```
 
 O comando da CLI da AWS gera várias informações. Dentro do bloco de credenciais, você precisa de **AccessKeyId**, **SecretAccessKey** e **SessionToken**. Anote o registro de data e hora do campo de expiração. Está no fuso horário UTC e indica quando as credenciais temporárias da função IAM expiram. Se as credenciais temporárias expirarem, você deverá chamar a chamada da API **sts:AssumeRole** novamente.
 
