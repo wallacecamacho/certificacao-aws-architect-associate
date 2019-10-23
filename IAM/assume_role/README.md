@@ -223,3 +223,6 @@ aws sts get-caller-identity
 O comando **unset **remove as variáveis ​​de ambiente e o comando** aws sts get-caller-identity** verifica se você retornou como **Bob**.
 
 Você também pode usar uma função criando um perfil no arquivo **~/.aws/config**. Para obter mais informações, consulte [Assumindo uma função do IAM na AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-role.html).
+
+
+[Acesso os arquivos exemplo das configurações ](https://github.com/wallacecamacho/certificacao-aws-architect-associate/tree/master/IAM/assume_role/exemplos).
