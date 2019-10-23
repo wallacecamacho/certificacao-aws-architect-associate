@@ -117,7 +117,7 @@ O comando da AWS CLI gera um ID da chave de acesso e uma chave de acesso secreta
 
 **Configure as chaves de acesso**
 
-1. Para configurar as teclas de acesso, use o perfil padrão ou um perfil específico. Para configurar o perfil padrão, execute **aws configure **. Para criar um novo perfil específico, execute **aws configure --profile example-profile-name**. Neste exemplo, o perfil padrão está configurado:
+1. Para configurar as teclas de acesso, use o perfil padrão ou um perfil específico. Para configurar o perfil padrão, execute **aws configure**. Para criar um novo perfil específico, execute **aws configure --profile example-profile-name**. Neste exemplo, o perfil padrão está configurado:
 
 `` 
 aws configure
