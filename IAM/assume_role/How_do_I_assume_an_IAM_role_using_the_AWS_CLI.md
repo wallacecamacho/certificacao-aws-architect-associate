@@ -144,6 +144,7 @@ O comando **aws sts get-caller-identity** gera três informações, incluindo o 
 `` 
 aws ec2 describe-instances --query "Reservations[*].Instances[*].[VpcId, InstanceId, ImageId, InstanceType]"
 ``
+
 ``aws rds describe-db-instances --query "DBInstances[*].[DBInstanceIdentifier, DBName, DBInstanceStatus, AvailabilityZone, DBInstanceClass]"
 ``
 
@@ -189,6 +190,7 @@ O comando da CLI da AWS deve gerar o ARN como **arn:aws:sts::123456789012:papel-
 `` 
 aws ec2 describe-instances --query "Reservations[*].Instances[*].[VpcId, InstanceId, ImageId, InstanceType]"
 ``
+
 ``
 aws rds describe-db-instances --query "DBInstances[*].[DBInstanceIdentifier, DBName, DBInstanceStatus, AvailabilityZone, DBInstanceClass]"
 ``
