@@ -151,7 +151,7 @@ aws ec2 describe-instances --query "Reservations[*].Instances[*].[VpcId, Instanc
 aws rds describe-db-instances --query "DBInstances[*].[DBInstanceIdentifier, DBName, DBInstanceStatus, AvailabilityZone, DBInstanceClass]"
 ```
 
-O comando **aws ec2 descrevem-instâncias** deve mostrar todas as instâncias do EC2 que estão na região eu-west-1. O comando **aws rds descrevem-db-instâncias** deve gerar uma mensagem de erro de acesso negado, porque **Bob** não tem acesso ao Amazon RDS.
+O comando **aws ec2 describe-instance** deve mostrar todas as instâncias do EC2 que estão na região eu-west-1. O comando **aws rds describe-db-instances** deve gerar uma mensagem de erro de acesso negado, porque **Bob** não tem acesso ao Amazon RDS.
 
 **Assuma a função do IAM**
 
