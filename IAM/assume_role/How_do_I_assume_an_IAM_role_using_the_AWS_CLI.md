@@ -181,7 +181,7 @@ export AWS_SESSION_TOKEN=ExampleSessionToken1
 aws sts get-caller-identity
 ``
 
-O comando da CLI da AWS deve gerar o ARN como **arn:aws:sts::123456789012:papel assumido/exemplo-papel/AWSCLI-Session** em vez de **arn:aws:iam::123456789012:usuário/Bob**, que verifica se você assumiu o **exemplo-papel**.
+O comando da CLI da AWS deve gerar o ARN como **arn:aws:sts::123456789012:papel-assumido/exemplo-papel/AWSCLI-Session** em vez de **arn:aws:iam::123456789012:user/Bob**, que verifica se você assumiu o **exemplo-papel**.
 
 3. Você criou uma função do IAM com acesso somente leitura às instâncias do Amazon RDS DB, mas sem acesso às instâncias do EC2. Verifique executando estes comandos:
 
