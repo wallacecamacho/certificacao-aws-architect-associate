@@ -14,19 +14,19 @@ Siga estas instruções para assumir uma função do IAM usando a CLI da AWS. Ne
 
 **Nota: **Substitua** Bob** pelo seu nome de usuário do IAM.
 
-``
+```
 aws iam create-user - nome do usuário Bob
-``
+```
 
 1. Crie a política do IAM que concede as permissões a **Bob** usando a AWS CLI. Você deve criar o arquivo JSON que define a política do IAM usando seu editor de texto favorito. Este exemplo usa o vim, que é comumente usado no Linux:
 
 **Nota: **Substitua** example** por seu próprio nome da política, nome do usuário, função, nome do arquivo JSON, nome do perfil e chaves.
 
-`` 
+```
 vim example-policy.json
-``
+```
 
-3. O conteúdo do arquivo **example-policy.json** deve ser semelhante a este:
+1. O conteúdo do arquivo **example-policy.json** deve ser semelhante a este:
 
 ```
 {
@@ -119,13 +119,13 @@ O comando da AWS CLI gera um ID da chave de acesso e uma chave de acesso secreta
 
 1. Para configurar as teclas de acesso, use o perfil padrão ou um perfil específico. Para configurar o perfil padrão, execute **aws configure**. Para criar um novo perfil específico, execute **aws configure --profile example-profile-name**. Neste exemplo, o perfil padrão está configurado:
 
-`` 
+```
 aws configure
 ID da chave de acesso da AWS [Nenhum]:ExampleAccessKeyID1
 Chave de acesso secreto da AWS [Nenhuma]:ExampleSecretKey1
 Nome da região padrão [Nenhum]:eu-west-1
 Formato de saída padrão [Nenhum]:json
-``
+```
 
 **Nota:** Para **Nome da região padrão**, especifique sua [Região da AWS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
 
@@ -180,9 +180,9 @@ export AWS_SESSION_TOKEN=ExampleSessionToken1
 
 2. Verifique se você assumiu a função do IAM executando este comando:
 
-`` 
+```
 aws sts get-caller-identity
-``
+```
 
 O comando da CLI da AWS deve gerar o ARN como **arn:aws:sts::123456789012:papel-assumido/exemplo-papel/AWSCLI-Session** em vez de **arn:aws:iam::123456789012:user/Bob**, que verifica se você assumiu o **exemplo-papel**.
 
@@ -200,10 +200,10 @@ O comando **aws ec2 descreva instâncias** deve gerar uma mensagem de erro de ac
 
 4. Para retornar ao usuário do IAM, remova as variáveis ​​de ambiente:
 
-`` 
-desconfigurar AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
+```
+unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
 aws sts get-caller-identity
-``
+```
 
 O comando **unset **remove as variáveis ​​de ambiente e o comando** aws sts get-caller-identity** verifica se você retornou como **Bob**.
 
