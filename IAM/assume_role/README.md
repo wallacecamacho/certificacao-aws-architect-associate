@@ -5,7 +5,7 @@ _Última atualização: 2019-05-07_
 Desejo assumir uma função do Amazon Identity and Access Management (IAM) usando a AWS Command Line Interface (AWS CLI). Como posso fazer isso?
 
 ## Artefatos
-[**Arquivos de exemplos das configurações**](https://github.com/wallacecamacho/certificacao-aws-architect-associate/tree/master/IAM/assume_role/exemplos).
+[Arquivos de exemplos das configurações](https://github.com/wallacecamacho/certificacao-aws-architect-associate/tree/master/IAM/assume_role/exemplos).
 
 ## Resolução
 
