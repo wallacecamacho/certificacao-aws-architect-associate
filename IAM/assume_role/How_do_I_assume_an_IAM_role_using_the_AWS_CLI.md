@@ -159,7 +159,7 @@ lista-papéis do aws iam --query "Funções [?Nome_do_Role=='exemplo-papel']. [N
 2. O comando lista funções do IAM, mas filtra a saída pelo nome da função. Para assumir a função do IAM, execute este comando:
 
 `` 
-aws sts assume-função --role-arn "arn:aws:iam::123456789012:role/exemplo-função" --role-session-name AWSCLI-Session
+aws sts assume-role --role-arn "arn:aws:iam::123456789012:role/exemplo-função" --role-session-name AWSCLI-Session
 ``
 
 O comando da CLI da AWS gera várias informações. Dentro do bloco de credenciais, você precisa de **AccessKeyId**, **SecretAccessKey** e **SessionToken**. Anote o registro de data e hora do campo de expiração. Está no fuso horário UTC e indica quando as credenciais temporárias da função IAM expiram. Se as credenciais temporárias expirarem, você deverá chamar a chamada da API **sts:AssumeRole** novamente.
@@ -186,7 +186,7 @@ O comando da CLI da AWS deve gerar o ARN como **arn:aws:sts::123456789012:papel-
 3. Você criou uma função do IAM com acesso somente leitura às instâncias do Amazon RDS DB, mas sem acesso às instâncias do EC2. Verifique executando estes comandos:
 
 `` 
-aws ec2 descrevem-instâncias --query "Reservas [*]. Instâncias [*]. [VpcId, InstanceId, ImageId, InstanceType]"
+aws ec2 describe-instances --query "Reservas [*]. Instâncias [*]. [VpcId, InstanceId, ImageId, InstanceType]"
 aws rds descrevem-db-instâncias --query "DBInstances [*]. [DBInstanceIdentifier, DBName, DBInstanceStatus, AvailabilityZone, DBInstanceClass]"
 ``
 
