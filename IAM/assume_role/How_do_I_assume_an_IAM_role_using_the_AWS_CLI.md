@@ -95,7 +95,7 @@ Você também pode restringir a relação de confiança para que a função do I
 
 **Crie a função do IAM e anexe a política**
 
-Crie uma função do IAM que possa ser assumida por ** Bob ** que tenha acesso somente leitura às instâncias do Amazon Relational Database Service (Amazon RDS). Como essa função do IAM é assumida por um usuário do IAM, você deve especificar uma entidade que permita que os usuários do IAM assumam essa função. Por exemplo, um princípio semelhante a **arn:aws:iam::123456789012:root** permite que todas as identidades do IAM da conta assumam essa função. Para obter mais informações, consulte [Criando uma função para delegar permissões a um usuário do IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user.html).
+Crie uma função do IAM que possa ser assumida por **Bob** que tenha acesso somente leitura às instâncias do Amazon Relational Database Service (Amazon RDS). Como essa função do IAM é assumida por um usuário do IAM, você deve especificar uma entidade que permita que os usuários do IAM assumam essa função. Por exemplo, um princípio semelhante a **arn:aws:iam::123456789012:root** permite que todas as identidades do IAM da conta assumam essa função. Para obter mais informações, consulte [Criando uma função para delegar permissões a um usuário do IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user.html).
 
 1. Crie a função IAM que tenha acesso somente leitura às instâncias do Amazon RDS DB. Anexe as políticas do IAM à sua função do IAM de acordo com seus requisitos de segurança.
 
