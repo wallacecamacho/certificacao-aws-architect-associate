@@ -99,7 +99,7 @@ Crie uma função do IAM que possa ser assumida por **Bob** que tenha acesso som
 
 1. Crie a função IAM que tenha acesso somente leitura às instâncias do Amazon RDS DB. Anexe as políticas do IAM à sua função do IAM de acordo com seus requisitos de segurança.
 
-O comando **aws iam create-role** cria a função IAM e define o relacionamento de confiança de acordo com o conteúdo do arquivo JSON. O comando **aws iam attach-role-policy** anexa a Política gerenciada da AWS **AmazonRDSReadOnlyAccess** à função. Você pode anexar políticas diferentes (políticas gerenciadas e políticas personalizadas) de acordo com seus requisitos de segurança. O comandoa**aws iam list-attached-role-policy**amostra as políticas do IAM anexadas à função do IAM **example-role**.
+O comando **aws iam create-role** cria a função IAM e define o relacionamento de confiança de acordo com o conteúdo do arquivo JSON. O comando **aws iam attach-role-policy** anexa a Política gerenciada da AWS **AmazonRDSReadOnlyAccess** à função. Você pode anexar políticas diferentes (políticas gerenciadas e políticas personalizadas) de acordo com seus requisitos de segurança. O comando **aws iam list-attached-role-policy** amostra as políticas do IAM anexadas à função do IAM **example-role**.
 
 `` 
 arquivo aws iam create-role --role-name exemplo-role --assume-role-policy-document: //example-role-trust-policy.json
@@ -117,7 +117,7 @@ O comando da AWS CLI gera um ID da chave de acesso e uma chave de acesso secreta
 
 **Configure as chaves de acesso**
 
-1. Para configurar as teclas de acesso, use o perfil padrão ou um perfil específico. Para configurar o perfil padrão, execute **aws configur **. Para criar um novo perfil específico, execute **aws configure --profile example-profile-name**. Neste exemplo, o perfil padrão está configurado:
+1. Para configurar as teclas de acesso, use o perfil padrão ou um perfil específico. Para configurar o perfil padrão, execute **aws configure **. Para criar um novo perfil específico, execute **aws configure --profile example-profile-name**. Neste exemplo, o perfil padrão está configurado:
 
 `` 
 aws configure
