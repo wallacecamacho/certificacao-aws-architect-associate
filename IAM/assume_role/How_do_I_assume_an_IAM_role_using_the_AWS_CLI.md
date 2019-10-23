@@ -179,7 +179,7 @@ export AWS_ACCESS_KEY_ID=ExampleAccessKeyID1
 export AWS_SECRET_ACCESS_KEY=ExampleSecretKey1
 export AWS_SESSION_TOKEN=ExampleSessionToken1
 ```
-2. Verifique as informações digite o comando:
+2. Compare as informações geradas digite o comando:
    
 ```
 env | grep AWS
