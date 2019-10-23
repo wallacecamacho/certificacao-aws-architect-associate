@@ -15,7 +15,7 @@ Siga estas instruções para assumir uma função do IAM usando a CLI da AWS. Ne
 **Nota: **Substitua** Bob** pelo seu nome de usuário do IAM.
 
 ```
-aws iam create-user - nome do usuário Bob
+aws iam create-user --user-name Bob
 ```
 
 1. Crie a política do IAM que concede as permissões a **Bob** usando a AWS CLI. Você deve criar o arquivo JSON que define a política do IAM usando seu editor de texto favorito. Este exemplo usa o vim, que é comumente usado no Linux:
@@ -211,7 +211,7 @@ aws ec2 describe-instances --query "Reservations[*].Instances[*].[VpcId Instance
 aws rds describe-db-instances --query "DBInstances[*].[DBInstanceIdentifier, DBName, DBInstanceStatus, AvailabilityZone, DBInstanceClass]"
 ```
 
-O comando **aws ec2 descreva instâncias** deve gerar uma mensagem de erro de acesso negado e o comando **aws ec2 descreva instâncias** deve retornar as instâncias do Amazon RDS DB. Isso verifica se as permissões atribuídas à função do IAM estão funcionando corretamente.
+O comando **aws ec2 describe-instances** deve gerar uma mensagem de erro de acesso negado e o comando **aws describe-db-instances** deve retornar as instâncias do Amazon RDS DB. Isso verifica se as permissões atribuídas à função do IAM estão funcionando corretamente.
 
 4. Para retornar ao usuário do IAM, remova as variáveis ​​de ambiente:
 
