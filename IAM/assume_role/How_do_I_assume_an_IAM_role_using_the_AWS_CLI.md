@@ -147,8 +147,8 @@ O comando **aws --profile test sts get-caller-identity** gera três informaçõe
 2. Confirme se o usuário do IAM possui acesso somente leitura às instâncias do EC2 e nenhum acesso às instâncias do Amazon RDS DB executando estes comandos:
 
 ```
-aws --profile test ec2 describe-instances --query "Reservations[*].Instances[*].[VpcId, InstanceId, ImageId, InstanceType]"
-aws --profile test rds describe-db-instances --query "DBInstances[*].[DBInstanceIdentifier, DBName, DBInstanceStatus, AvailabilityZone, DBInstanceClass]"
+aws ec2 describe-instances --query "Reservations[*].Instances[*].[VpcId, InstanceId, ImageId, InstanceType]"
+aws rds describe-db-instances --query "DBInstances[*].[DBInstanceIdentifier, DBName, DBInstanceStatus, AvailabilityZone, DBInstanceClass]"
 ```
 
 O comando **aws ec2 descrevem-instâncias** deve mostrar todas as instâncias do EC2 que estão na região eu-west-1. O comando **aws rds descrevem-db-instâncias** deve gerar uma mensagem de erro de acesso negado, porque **Bob** não tem acesso ao Amazon RDS.
@@ -158,13 +158,13 @@ O comando **aws ec2 descrevem-instâncias** deve mostrar todas as instâncias do
 1. Obtenha o ARN da função executando este comando:
 
 ```
-aws --profile test iam list-roles --query "Roles[?RoleName == 'exemplo-role'].[RoleName, Arn]"
+aws iam list-roles --query "Roles[?RoleName == 'exemplo-role'].[RoleName, Arn]"
 ```
 
 2. O comando lista funções do IAM, mas filtra a saída pelo nome da função. Para assumir a função do IAM, execute este comando:
 
 ```
-aws --profile test sts assume-role --role-arn "arn:aws:iam::123456789012:role/exemplo-role" --role-session-name AWSCLI-Session
+aws sts assume-role --role-arn "arn:aws:iam::123456789012:role/exemplo-role" --role-session-name AWSCLI-Session
 ```
 
 O comando da CLI da AWS gera várias informações. Dentro do bloco de credenciais, você precisa de **AccessKeyId**, **SecretAccessKey** e **SessionToken**. Anote o registro de data e hora do campo de expiração. Está no fuso horário UTC e indica quando as credenciais temporárias da função IAM expiram. Se as credenciais temporárias expirarem, você deverá chamar a chamada da API **sts:AssumeRole** novamente.
